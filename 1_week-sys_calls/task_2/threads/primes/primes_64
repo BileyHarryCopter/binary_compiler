@@ -1,0 +1,47 @@
+execve("./primes", ["./primes"], 0x7ffcce518dd0 /* 55 vars */) = 0
+brk(NULL)                               = 0x55b40330c000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fff2704bc60) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fd6b5171000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=109991, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 109991, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fd6b5156000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0i8\235HZ\227\223\333\350s\360\352,\223\340."..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=2216304, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2260560, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fd6b4e00000
+mmap(0x7fd6b4e28000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7fd6b4e28000
+mmap(0x7fd6b4fbd000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7fd6b4fbd000
+mmap(0x7fd6b5015000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x214000) = 0x7fd6b5015000
+mmap(0x7fd6b501b000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fd6b501b000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fd6b5153000
+arch_prctl(ARCH_SET_FS, 0x7fd6b5153740) = 0
+set_tid_address(0x7fd6b5153a10)         = 36310
+set_robust_list(0x7fd6b5153a20, 24)     = 0
+rseq(0x7fd6b51540e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7fd6b5015000, 16384, PROT_READ) = 0
+mprotect(0x55b401a0d000, 4096, PROT_READ) = 0
+mprotect(0x7fd6b51ab000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7fd6b5156000, 109991)          = 0
+rt_sigaction(SIGRT_1, {sa_handler=0x7fd6b4e918f0, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_RESTART|SA_SIGINFO, sa_restorer=0x7fd6b4e42520}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7fd6b45ff000
+mprotect(0x7fd6b4600000, 8388608, PROT_READ|PROT_WRITE) = 0
+getrandom("\x70\x27\x45\x2b\xc0\xd8\x67\x12", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x55b40330c000
+brk(0x55b40332d000)                     = 0x55b40332d000
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fd6b4dff910, parent_tid=0x7fd6b4dff910, exit_signal=0, stack=0x7fd6b45ff000, stack_size=0x7fff00, tls=0x7fd6b4dff640} => {parent_tid=[36311]}, 88) = 36311
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x7fd6b4dff910, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 36311, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
+write(1, "The 5000th prime number is 48611"..., 34) = 34
+exit_group(0)                           = ?
++++ exited with 0 +++
