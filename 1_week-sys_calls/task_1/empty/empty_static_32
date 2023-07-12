@@ -1,0 +1,17 @@
+execve("./empty", ["./empty"], 0x7ffe4b0a6810 /* 55 vars */) = 0
+arch_prctl(0x3001 /* ARCH_??? */, 0xffe68238) = -1 EINVAL (Invalid argument)
+brk(NULL)                               = 0x86f5000
+brk(0x86f5900)                          = 0x86f5900
+set_thread_area({entry_number=-1, base_addr=0x86f5380, limit=0x0fffff, seg_32bit=1, contents=0, read_exec_only=0, limit_in_pages=1, seg_not_present=0, useable=1}) = 0 (entry_number=12)
+set_tid_address(0x86f53e8)              = 19115
+set_robust_list(0x86f53f0, 12)          = 0
+rseq(0x86f58a0, 0x20, 0, 0x53053053)    = 0
+uname({sysname="Linux", nodename="danil-MacBookAir", ...}) = 0
+ugetrlimit(RLIMIT_STACK, {rlim_cur=8192*1024, rlim_max=RLIM_INFINITY}) = 0
+readlink("/proc/self/exe", "/home/danil/Documents/Biley_Repo"..., 4096) = 76
+getrandom("\xfa\x7b\xfb\x83", 4, GRND_NONBLOCK) = 4
+brk(0x8716900)                          = 0x8716900
+brk(0x8717000)                          = 0x8717000
+mprotect(0x80ea000, 12288, PROT_READ)   = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
