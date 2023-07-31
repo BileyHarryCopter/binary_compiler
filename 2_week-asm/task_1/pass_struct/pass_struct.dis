@@ -1,0 +1,305 @@
+
+pass_struct:     file format elf32-i386
+
+
+Disassembly of section .init:
+
+00001000 <_init>:
+    1000:	f3 0f 1e fb          	endbr32 
+    1004:	53                   	push   ebx
+    1005:	83 ec 08             	sub    esp,0x8
+    1008:	e8 93 00 00 00       	call   10a0 <__x86.get_pc_thunk.bx>
+    100d:	81 c3 cb 2f 00 00    	add    ebx,0x2fcb
+    1013:	8b 83 1c 00 00 00    	mov    eax,DWORD PTR [ebx+0x1c]
+    1019:	85 c0                	test   eax,eax
+    101b:	74 02                	je     101f <_init+0x1f>
+    101d:	ff d0                	call   eax
+    101f:	83 c4 08             	add    esp,0x8
+    1022:	5b                   	pop    ebx
+    1023:	c3                   	ret    
+
+Disassembly of section .plt:
+
+00001030 <__libc_start_main@plt-0x10>:
+    1030:	ff b3 04 00 00 00    	push   DWORD PTR [ebx+0x4]
+    1036:	ff a3 08 00 00 00    	jmp    DWORD PTR [ebx+0x8]
+    103c:	00 00                	add    BYTE PTR [eax],al
+	...
+
+00001040 <__libc_start_main@plt>:
+    1040:	ff a3 0c 00 00 00    	jmp    DWORD PTR [ebx+0xc]
+    1046:	68 00 00 00 00       	push   0x0
+    104b:	e9 e0 ff ff ff       	jmp    1030 <_init+0x30>
+
+00001050 <__stack_chk_fail@plt>:
+    1050:	ff a3 10 00 00 00    	jmp    DWORD PTR [ebx+0x10]
+    1056:	68 08 00 00 00       	push   0x8
+    105b:	e9 d0 ff ff ff       	jmp    1030 <_init+0x30>
+
+Disassembly of section .plt.got:
+
+00001060 <__cxa_finalize@plt>:
+    1060:	ff a3 18 00 00 00    	jmp    DWORD PTR [ebx+0x18]
+    1066:	66 90                	xchg   ax,ax
+
+Disassembly of section .text:
+
+00001070 <_start>:
+    1070:	f3 0f 1e fb          	endbr32 
+    1074:	31 ed                	xor    ebp,ebp
+    1076:	5e                   	pop    esi
+    1077:	89 e1                	mov    ecx,esp
+    1079:	83 e4 f0             	and    esp,0xfffffff0
+    107c:	50                   	push   eax
+    107d:	54                   	push   esp
+    107e:	52                   	push   edx
+    107f:	e8 18 00 00 00       	call   109c <_start+0x2c>
+    1084:	81 c3 54 2f 00 00    	add    ebx,0x2f54
+    108a:	6a 00                	push   0x0
+    108c:	6a 00                	push   0x0
+    108e:	51                   	push   ecx
+    108f:	56                   	push   esi
+    1090:	ff b3 20 00 00 00    	push   DWORD PTR [ebx+0x20]
+    1096:	e8 a5 ff ff ff       	call   1040 <__libc_start_main@plt>
+    109b:	f4                   	hlt    
+    109c:	8b 1c 24             	mov    ebx,DWORD PTR [esp]
+    109f:	c3                   	ret    
+
+000010a0 <__x86.get_pc_thunk.bx>:
+    10a0:	8b 1c 24             	mov    ebx,DWORD PTR [esp]
+    10a3:	c3                   	ret    
+    10a4:	66 90                	xchg   ax,ax
+    10a6:	66 90                	xchg   ax,ax
+    10a8:	66 90                	xchg   ax,ax
+    10aa:	66 90                	xchg   ax,ax
+    10ac:	66 90                	xchg   ax,ax
+    10ae:	66 90                	xchg   ax,ax
+
+000010b0 <deregister_tm_clones>:
+    10b0:	e8 e4 00 00 00       	call   1199 <__x86.get_pc_thunk.dx>
+    10b5:	81 c2 23 2f 00 00    	add    edx,0x2f23
+    10bb:	8d 8a 30 00 00 00    	lea    ecx,[edx+0x30]
+    10c1:	8d 82 30 00 00 00    	lea    eax,[edx+0x30]
+    10c7:	39 c8                	cmp    eax,ecx
+    10c9:	74 1d                	je     10e8 <deregister_tm_clones+0x38>
+    10cb:	8b 82 14 00 00 00    	mov    eax,DWORD PTR [edx+0x14]
+    10d1:	85 c0                	test   eax,eax
+    10d3:	74 13                	je     10e8 <deregister_tm_clones+0x38>
+    10d5:	55                   	push   ebp
+    10d6:	89 e5                	mov    ebp,esp
+    10d8:	83 ec 14             	sub    esp,0x14
+    10db:	51                   	push   ecx
+    10dc:	ff d0                	call   eax
+    10de:	83 c4 10             	add    esp,0x10
+    10e1:	c9                   	leave  
+    10e2:	c3                   	ret    
+    10e3:	8d 74 26 00          	lea    esi,[esi+eiz*1+0x0]
+    10e7:	90                   	nop
+    10e8:	c3                   	ret    
+    10e9:	8d b4 26 00 00 00 00 	lea    esi,[esi+eiz*1+0x0]
+
+000010f0 <register_tm_clones>:
+    10f0:	e8 a4 00 00 00       	call   1199 <__x86.get_pc_thunk.dx>
+    10f5:	81 c2 e3 2e 00 00    	add    edx,0x2ee3
+    10fb:	55                   	push   ebp
+    10fc:	89 e5                	mov    ebp,esp
+    10fe:	53                   	push   ebx
+    10ff:	8d 8a 30 00 00 00    	lea    ecx,[edx+0x30]
+    1105:	8d 82 30 00 00 00    	lea    eax,[edx+0x30]
+    110b:	83 ec 04             	sub    esp,0x4
+    110e:	29 c8                	sub    eax,ecx
+    1110:	89 c3                	mov    ebx,eax
+    1112:	c1 e8 1f             	shr    eax,0x1f
+    1115:	c1 fb 02             	sar    ebx,0x2
+    1118:	01 d8                	add    eax,ebx
+    111a:	d1 f8                	sar    eax,1
+    111c:	74 14                	je     1132 <register_tm_clones+0x42>
+    111e:	8b 92 24 00 00 00    	mov    edx,DWORD PTR [edx+0x24]
+    1124:	85 d2                	test   edx,edx
+    1126:	74 0a                	je     1132 <register_tm_clones+0x42>
+    1128:	83 ec 08             	sub    esp,0x8
+    112b:	50                   	push   eax
+    112c:	51                   	push   ecx
+    112d:	ff d2                	call   edx
+    112f:	83 c4 10             	add    esp,0x10
+    1132:	8b 5d fc             	mov    ebx,DWORD PTR [ebp-0x4]
+    1135:	c9                   	leave  
+    1136:	c3                   	ret    
+    1137:	8d b4 26 00 00 00 00 	lea    esi,[esi+eiz*1+0x0]
+    113e:	66 90                	xchg   ax,ax
+
+00001140 <__do_global_dtors_aux>:
+    1140:	f3 0f 1e fb          	endbr32 
+    1144:	55                   	push   ebp
+    1145:	89 e5                	mov    ebp,esp
+    1147:	53                   	push   ebx
+    1148:	e8 53 ff ff ff       	call   10a0 <__x86.get_pc_thunk.bx>
+    114d:	81 c3 8b 2e 00 00    	add    ebx,0x2e8b
+    1153:	83 ec 04             	sub    esp,0x4
+    1156:	80 bb 30 00 00 00 00 	cmp    BYTE PTR [ebx+0x30],0x0
+    115d:	75 27                	jne    1186 <__do_global_dtors_aux+0x46>
+    115f:	8b 83 18 00 00 00    	mov    eax,DWORD PTR [ebx+0x18]
+    1165:	85 c0                	test   eax,eax
+    1167:	74 11                	je     117a <__do_global_dtors_aux+0x3a>
+    1169:	83 ec 0c             	sub    esp,0xc
+    116c:	ff b3 2c 00 00 00    	push   DWORD PTR [ebx+0x2c]
+    1172:	e8 e9 fe ff ff       	call   1060 <__cxa_finalize@plt>
+    1177:	83 c4 10             	add    esp,0x10
+    117a:	e8 31 ff ff ff       	call   10b0 <deregister_tm_clones>
+    117f:	c6 83 30 00 00 00 01 	mov    BYTE PTR [ebx+0x30],0x1
+    1186:	8b 5d fc             	mov    ebx,DWORD PTR [ebp-0x4]
+    1189:	c9                   	leave  
+    118a:	c3                   	ret    
+    118b:	8d 74 26 00          	lea    esi,[esi+eiz*1+0x0]
+    118f:	90                   	nop
+
+00001190 <frame_dummy>:
+    1190:	f3 0f 1e fb          	endbr32 
+    1194:	e9 57 ff ff ff       	jmp    10f0 <register_tm_clones>
+
+00001199 <__x86.get_pc_thunk.dx>:
+    1199:	8b 14 24             	mov    edx,DWORD PTR [esp]
+    119c:	c3                   	ret    
+
+0000119d <insert>:
+    119d:	55                   	push   ebp
+    119e:	89 e5                	mov    ebp,esp
+    11a0:	e8 6d 00 00 00       	call   1212 <__x86.get_pc_thunk.ax>
+    11a5:	05 33 2e 00 00       	add    eax,0x2e33
+    11aa:	90                   	nop
+    11ab:	5d                   	pop    ebp
+    11ac:	c3                   	ret    
+
+000011ad <main>:
+    11ad:	8d 4c 24 04          	lea    ecx,[esp+0x4]
+    11b1:	83 e4 f0             	and    esp,0xfffffff0
+    11b4:	ff 71 fc             	push   DWORD PTR [ecx-0x4]
+    11b7:	55                   	push   ebp
+    11b8:	89 e5                	mov    ebp,esp
+    11ba:	51                   	push   ecx
+    11bb:	83 ec 14             	sub    esp,0x14
+    11be:	e8 4f 00 00 00       	call   1212 <__x86.get_pc_thunk.ax>
+    11c3:	05 15 2e 00 00       	add    eax,0x2e15
+    11c8:	65 a1 14 00 00 00    	mov    eax,gs:0x14
+    11ce:	89 45 f4             	mov    DWORD PTR [ebp-0xc],eax
+    11d1:	31 c0                	xor    eax,eax
+    11d3:	c7 45 e8 5a f3 1c 21 	mov    DWORD PTR [ebp-0x18],0x211cf35a
+    11da:	c7 45 ec 00 00 00 00 	mov    DWORD PTR [ebp-0x14],0x0
+    11e1:	c7 45 f0 00 00 00 00 	mov    DWORD PTR [ebp-0x10],0x0
+    11e8:	8d 45 e8             	lea    eax,[ebp-0x18]
+    11eb:	50                   	push   eax
+    11ec:	e8 ac ff ff ff       	call   119d <insert>
+    11f1:	83 c4 04             	add    esp,0x4
+    11f4:	b8 00 00 00 00       	mov    eax,0x0
+    11f9:	8b 55 f4             	mov    edx,DWORD PTR [ebp-0xc]
+    11fc:	65 2b 15 14 00 00 00 	sub    edx,DWORD PTR gs:0x14
+    1203:	74 05                	je     120a <main+0x5d>
+    1205:	e8 16 00 00 00       	call   1220 <__stack_chk_fail_local>
+    120a:	8b 4d fc             	mov    ecx,DWORD PTR [ebp-0x4]
+    120d:	c9                   	leave  
+    120e:	8d 61 fc             	lea    esp,[ecx-0x4]
+    1211:	c3                   	ret    
+
+00001212 <__x86.get_pc_thunk.ax>:
+    1212:	8b 04 24             	mov    eax,DWORD PTR [esp]
+    1215:	c3                   	ret    
+    1216:	66 90                	xchg   ax,ax
+    1218:	66 90                	xchg   ax,ax
+    121a:	66 90                	xchg   ax,ax
+    121c:	66 90                	xchg   ax,ax
+    121e:	66 90                	xchg   ax,ax
+
+00001220 <__stack_chk_fail_local>:
+    1220:	f3 0f 1e fb          	endbr32 
+    1224:	53                   	push   ebx
+    1225:	e8 76 fe ff ff       	call   10a0 <__x86.get_pc_thunk.bx>
+    122a:	81 c3 ae 2d 00 00    	add    ebx,0x2dae
+    1230:	83 ec 08             	sub    esp,0x8
+    1233:	e8 18 fe ff ff       	call   1050 <__stack_chk_fail@plt>
+
+Disassembly of section .fini:
+
+00001238 <_fini>:
+    1238:	f3 0f 1e fb          	endbr32 
+    123c:	53                   	push   ebx
+    123d:	83 ec 08             	sub    esp,0x8
+    1240:	e8 5b fe ff ff       	call   10a0 <__x86.get_pc_thunk.bx>
+    1245:	81 c3 93 2d 00 00    	add    ebx,0x2d93
+    124b:	83 c4 08             	add    esp,0x8
+    124e:	5b                   	pop    ebx
+    124f:	c3                   	ret    
+Contents of the .eh_frame section (loaded from pass_struct):
+
+
+00000000 00000014 00000000 CIE
+  Version:               1
+  Augmentation:          "zR"
+  Code alignment factor: 1
+  Data alignment factor: -4
+  Return address column: 8
+  Augmentation data:     1b
+  DW_CFA_def_cfa: r4 (esp) ofs 4
+  DW_CFA_offset: r8 (eip) at cfa-4
+  DW_CFA_nop
+  DW_CFA_nop
+
+00000018 00000010 0000001c FDE cie=00000000 pc=00001070..000010a0
+  DW_CFA_advance_loc: 4 to 00001074
+  DW_CFA_undefined: r8 (eip)
+
+0000002c 00000020 00000030 FDE cie=00000000 pc=00001030..00001060
+  DW_CFA_def_cfa_offset: 8
+  DW_CFA_advance_loc: 6 to 00001036
+  DW_CFA_def_cfa_offset: 12
+  DW_CFA_advance_loc: 10 to 00001040
+  DW_CFA_def_cfa_expression (DW_OP_breg4 (esp): 4; DW_OP_breg8 (eip): 0; DW_OP_lit15; DW_OP_and; DW_OP_lit11; DW_OP_ge; DW_OP_lit2; DW_OP_shl; DW_OP_plus)
+
+00000050 00000010 00000054 FDE cie=00000000 pc=00001060..00001068
+  DW_CFA_nop
+  DW_CFA_nop
+  DW_CFA_nop
+
+00000064 0000001c 00000068 FDE cie=00000000 pc=0000119d..000011ad
+  DW_CFA_advance_loc: 1 to 0000119e
+  DW_CFA_def_cfa_offset: 8
+  DW_CFA_offset: r5 (ebp) at cfa-8
+  DW_CFA_advance_loc: 2 to 000011a0
+  DW_CFA_def_cfa_register: r5 (ebp)
+  DW_CFA_advance_loc: 12 to 000011ac
+  DW_CFA_restore: r5 (ebp)
+  DW_CFA_def_cfa: r4 (esp) ofs 4
+  DW_CFA_nop
+  DW_CFA_nop
+
+00000084 00000028 00000088 FDE cie=00000000 pc=000011ad..00001212
+  DW_CFA_advance_loc: 4 to 000011b1
+  DW_CFA_def_cfa: r1 (ecx) ofs 0
+  DW_CFA_advance_loc: 9 to 000011ba
+  DW_CFA_expression: r5 (ebp) (DW_OP_breg5 (ebp): 0)
+  DW_CFA_advance_loc: 1 to 000011bb
+  DW_CFA_def_cfa_expression (DW_OP_breg5 (ebp): -4; DW_OP_deref)
+  DW_CFA_advance_loc1: 82 to 0000120d
+  DW_CFA_def_cfa: r1 (ecx) ofs 0
+  DW_CFA_advance_loc: 1 to 0000120e
+  DW_CFA_restore: r5 (ebp)
+  DW_CFA_advance_loc: 3 to 00001211
+  DW_CFA_def_cfa: r4 (esp) ofs 4
+
+000000b0 00000010 000000b4 FDE cie=00000000 pc=00001212..00001216
+  DW_CFA_nop
+  DW_CFA_nop
+  DW_CFA_nop
+
+000000c4 00000018 000000c8 FDE cie=00000000 pc=00001220..00001238
+  DW_CFA_advance_loc: 5 to 00001225
+  DW_CFA_def_cfa_offset: 8
+  DW_CFA_offset: r3 (ebx) at cfa-8
+  DW_CFA_advance_loc: 14 to 00001233
+  DW_CFA_def_cfa_offset: 16
+  DW_CFA_nop
+  DW_CFA_nop
+  DW_CFA_nop
+
+000000e0 ZERO terminator
+
+
