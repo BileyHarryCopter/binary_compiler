@@ -1,11 +1,8 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdint.h>
-#include <limits.h> //  for INT_MAX
+#include <limits.h>
 
 #include <immintrin.h>
-
-#define M8_ALLONES 0xFFu
 
 int slow_argmin(uint16_t *array, int n) //  naive realisation
 {
@@ -22,7 +19,7 @@ int slow_argmin(uint16_t *array, int n) //  naive realisation
     return k;
 }
 
-int fast_argmin(uint16_t *array, int n) //  intrinsic's power
+int find_argmin (uint16_t *array, int n)
 {
     if (n < 8)
         return slow_argmin(array, n);
@@ -34,14 +31,20 @@ int fast_argmin(uint16_t *array, int n) //  intrinsic's power
     int mainsz = (n / 8);
     for (int i = 0; i < mainsz; ++i)
     {
-        __m128i needle = _mm_loadu_si128((__m128i *) (array + 8 * i));
-        needle = _mm_minpos_epu16(needle);
-
-        _mm_storeu_si128((__m128i *) res_arr, needle);
-
+        // __uint128_t * addr = (__uint128_t *) (array + 8 * i);
+        __m128i addr = _mm_loadu_si128((__m128i *) (array + 8 * i));
+        __asm__
+        (
+            "phminposuw %[addr], %[res_arr]  \n\t"
+            : [res_arr]"=Yz"(res_arr)
+            : [addr]"Yz"(addr)
+        );
 
         uint16_t min_cur = res_arr[0];
         int cur_pos      = res_arr[1];
+
+        printf ("min_cur: %d\n", min_cur);
+        printf ("cur_pos: %d\n", cur_pos);
 
         if (min_cur < min)
         {
@@ -64,8 +67,7 @@ int main()
     uint16_t arr[27] = {34, 8, 5, 2, 21, 3, 2, 65, 81, 92, 120, 9, 19, 49, 74, 8,
                         65, 81, 92, 120, 15, 876, 3, 45, 92, 1, 27};
 
-    // printf("slow_argmin: %d\n", slow_argmin(arr, 16));
-    printf("fast_argmin: %d\n", fast_argmin(arr, 27));
+    printf("find_argmin: %d\n", find_argmin(arr, 27));
 
     return 0;
 }

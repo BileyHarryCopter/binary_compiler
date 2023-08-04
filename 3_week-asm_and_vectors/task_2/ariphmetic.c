@@ -9,13 +9,11 @@ int main()
 
     __asm__
     (
-        "mov %[a], %%rdx    \n\t"
-        "mov %[b], %%rax    \n\t"
-        "add %%rdx,%%rax    \n\t"
-        "mov %%rax,   %0    \n\t"
-        : "=m"(c)
-        : [a]"m"(a), [b]"m"(b)
-        : "rax", "rdx"
+        "add  %[a],  %[c_arg]    \n\t"
+        "add  %[b],  %[c_arg]    \n\t"
+        : [c_arg]"=m"(c)
+        : [a]"r"(a), [b]"r"(b)
+        :
     );
 
     printf ("value of c: %ld\n", c);
