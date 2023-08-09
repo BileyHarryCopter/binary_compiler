@@ -4,7 +4,7 @@
 .type   _start, @function
 _start:
 
-    # write (1, "Hello, World!\n", 14)
+    # write (1, "Hello, World!\n", 15)
     mov $1,    %rax
     mov $1,    %rdi
     mov $msg,  %rsi

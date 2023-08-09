@@ -58,3 +58,5 @@ probel:
 
 perenos:
     .asciz "\n"
+
+.end
