@@ -31,8 +31,11 @@ int find_argmin (uint16_t *array, int n)
     int mainsz = (n / 8);
     for (int i = 0; i < mainsz; ++i)
     {
+
         // __uint128_t * addr = (__uint128_t *) (array + 8 * i);
+        
         __m128i addr = _mm_loadu_si128((__m128i *) (array + 8 * i));
+
         __asm__
         (
             "phminposuw %[addr], %[res_arr]  \n\t"
