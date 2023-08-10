@@ -9,14 +9,14 @@ _start:
 loop:
 
     # checking if arg[i] is not a NULL
-    mov 8(%rsp, %rbx, 8),   %rsi
-    or  %rsi, %rsi
+    mov 8(%rsp, %rbx, 8),  %rsi
+    or  %rsi,              %rsi
     je  exit
 
     # algorithm of finding a length of arg string
-    mov %rsi, %rdi
-    sub	%ecx,             %ecx
-    sub	%al,              %al
+    mov %rsi,      %rdi
+    sub	%ecx,      %ecx
+    sub	%al,       %al
     not	%ecx
     repne scasb    
     not	%ecx       # now the length in ecx
@@ -43,14 +43,18 @@ exit:
     mov $1,        %rdx
     call my_print
 
-    mov $60,   %rax
-    xor %rdi,  %rdi
+    mov $60,       %rax
+    xor %rdi,      %rdi
     syscall
 
-my_print:   #   %rax strores pointer on string, %rdi - it's length
-    mov $1,    %rax
-    mov $1,    %rdi
+my_print:      #   In Advance: %rsi strores pointer on string, %rdx - it's length
+    push           %rax
+    push           %rdi
+    mov $1,        %rax
+    mov $1,        %rdi
     syscall
+    pop            %rdi
+    pop            %rax
     ret
 
 .size _start, . - _start

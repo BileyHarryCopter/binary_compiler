@@ -1,23 +1,3 @@
-.section .rodata
-.align  0x1000
-
-msg_no_arg:
-    .asciz "There is no file in argv\n"
-    .equ   len_no_arg, . - msg_no_arg
-
-msg_no_file:
-    .asciz "Opening of the file is incorrect\n"
-    .equ   len_no_file, . - msg_no_file
-
-BUFSIZE:
-    .int 2048
-
-
-.section .bss
-.align  0x1000
-.lcomm  buffer, 2048
-
-
 .section .text
 
 .globl	_start
@@ -33,54 +13,94 @@ _start:
     mov $2,             %rax
     mov 16(%rsp),       %rdi
     mov $0,             %rsi
-    syscall             #   open (argv[1], 0 [== RDONLY])
+    syscall         #   open (argv[1], 0 [== RDONLY])
 
     #   checking if the file was opened incorrectly
     cmp $0,             %rax
     jb exit_no_file
 
-#   reading_loop:
+    mov %rax,           %r8
+
+reading_loop:
 
     #   reading from file in the buffer
-    mov %rax,           %rdi
     mov $0,             %rax
+    mov %r8,            %rdi
     mov $buffer,        %rsi
     mov $BUFSIZE,       %rdx
-    syscall    #   read (3, buffer, BUFSIZE)
+    syscall         #   read (3, buffer, BUFSIZE)
 
-    #   writing to stdout
-    mov $1,             %rax
-    mov $1,             %rdi
+    #   writing buffer to stdout
     mov $buffer,        %rsi
     mov $BUFSIZE,       %rdx
-    syscall    #   write (1, buffer, BUFSIZE)
+    call my_print   #   write (1, buffer, BUFSIZE)
 
-    #   jmp reading_loop
+    #   checking if number of printed symbols are lower than BUFSIZE
+    cmp $BUFSIZE,       %rax
 
-exit_no_file:  #   write (1, "Opening of the file is incorrect\n", 34)
+    je reading_loop
+    jmp exit
 
-    mov $1,             %rax
-    mov $1,             %rdi
+exit_no_file:       #   write (1, "Opening of the file is incorrect\n", 34)
+
     mov $msg_no_file,   %rsi
     mov $len_no_file,   %rdx
-    syscall
+    call my_print
 
     jmp exit
 
-exit_no_arg:   #   write (1, "There is no file in argv\n", 27)
+exit_no_arg:        #   write (1, "There is no file in argv\n", 27)
 
-    mov $1,             %rax
-    mov $1,             %rdi
     mov $msg_no_arg,    %rsi
     mov $len_no_arg,    %rdx
+    call my_print
+
+    jmp exit
+
+exit:               #   exit (0)
+
+    mov $perenos,       %rsi
+    mov $1,             %rdx
+    call my_print
+    
+    mov $60,            %rax
+    xor %rdi,           %rdi
     syscall
 
-exit:           #   exit (0)
-
-    mov $60,   %rax
-    xor %rdi,  %rdi
+my_print:      #   In Advance: %rsi strores pointer on string, %rdx - it's length
+    push           %rax
+    push           %rdi
+    mov $1,        %rax
+    mov $1,        %rdi
     syscall
+    pop            %rdi
+    pop            %rax
+    ret
 
 .size _start, . - _start
+
+
+.section .rodata
+.align  0x1000
+
+msg_no_arg:
+    .asciz "There is no file in argv\n"
+    .equ   len_no_arg, . - msg_no_arg
+
+msg_no_file:
+    .asciz "Opening of the file is incorrect\n"
+    .equ   len_no_file, . - msg_no_file
+
+perenos:
+    .asciz "\n"
+
+BUFSIZE:
+    .int 2048
+
+
+.section .bss
+.align  0x1000
+.lcomm  buffer, 2048
+
 
 .end
