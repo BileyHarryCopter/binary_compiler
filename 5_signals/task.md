@@ -8,4 +8,40 @@
 
 ### <p style="text-align: center;"> SIGALTSTACK </p>
 
+Создадим 2 файла: **sigaltstack.c** и **sigstack.c** - для проверки адресов локальных переменных при создании альтернативного стэка и без. Для последнего объявим переменную типа **stack_t** и проинициализируем её поля соответствующим образом:
+```c
+    stack_t new_stack = {};
+    new_stack.ss_sp    = calloc (MINSIGSTKSZ, sizeof(int));
+    new_stack.ss_flags = 0;
+    new_stack.ss_size  = MINSIGSTKSZ;
+```
 
+После чего вызовем функцию **sigaltstack** для создания альтернативного стэка:
+```c
+    if (sigaltstack(&new_stack, NULL) == -1)
+    {
+        printf ("Creation of alternative stack is failed\n");
+        free(new_stack.ss_sp);
+        return 0;
+    }
+```
+
+При запуске программ действительно оказывается, что адреса локальных переменных отличаются больше в случае вызова альтернативного стэка:
+```c
+    ./sigaltstack:
+    PID of curent process: 9760
+
+
+    0x7ffe8470abc8                  //  &local from main
+    Calling sigaltstack
+    0x7ffe8470a3a4                  //  &local from handler
+```
+
+```c
+    ./sigstack:
+    PID of curent process: 9939
+
+
+    0x7ffee2592868                  //  &local from main
+    0x7ffee2592064                  //  &local from handler
+```
