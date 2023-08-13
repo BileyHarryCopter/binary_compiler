@@ -46,10 +46,10 @@ int main ()
     struct sigaction sa = {};
     sa.sa_handler = &handler;
 
+    sigaction (SIGUSR1, &sa, NULL);
+
     for (;;)
     {
-        sigaction (SIGUSR1, &sa, NULL);
-
         if (sigusr1_flag == -1)
             break;
     }
