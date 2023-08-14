@@ -11,7 +11,7 @@ loop:
     # checking if arg[i] is not a NULL
     mov 8(%rsp, %rbx, 8),  %rsi
     or  %rsi,              %rsi
-    je  exit
+    je  exit_from_loop
 
     # algorithm of finding a length of arg string
     mov %rsi,      %rdi
@@ -25,39 +25,46 @@ loop:
 
     # write(stdout, argv[i], length(argv[i]))
     call my_print
+    cmp %rax,      %rdx
+    jne exit_end
 
     # write(stdout, " ", 1)
     mov $probel,   %rsi
     mov $1,        %rdx
     call my_print
+    cmp %rax,      %rdx
+    jne exit_end
 
     inc %rbx
 
     jmp loop
 
-
-exit:
+exit_from_loop:
 
     # write(stdout, "\n", 1)
     mov $perenos,  %rsi
     mov $1,        %rdx
     call my_print
+    cmp %rax,      %rdx
+    jne exit_end
+
+exit_end:
 
     mov $60,       %rax
     xor %rdi,      %rdi
     syscall
 
 my_print:      #   In Advance: %rsi strores pointer on string, %rdx - it's length
-    push           %rax
+
     push           %rdi
     mov $1,        %rax
     mov $1,        %rdi
     syscall
     pop            %rdi
-    pop            %rax
     ret
 
 .size _start, . - _start
+
 
 .section .rodata
 .align  0x1000
