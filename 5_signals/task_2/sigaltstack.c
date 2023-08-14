@@ -32,9 +32,9 @@ int main ()
     printf ("Calling sigaltstack\n");
 
     stack_t new_stack = {};
-    new_stack.ss_sp    = calloc (MINSIGSTKSZ, sizeof(int));
+    new_stack.ss_sp    = calloc (SIGSTKSZ, sizeof(int));
     new_stack.ss_flags = 0;
-    new_stack.ss_size  = MINSIGSTKSZ;
+    new_stack.ss_size  = SIGSTKSZ;
 
     if (sigaltstack(&new_stack, NULL) == -1)
     {
@@ -45,6 +45,7 @@ int main ()
 
     struct sigaction sa = {};
     sa.sa_handler = &handler;
+    sa.sa_flags   = SA_ONSTACK;
 
     sigaction (SIGUSR1, &sa, NULL);
 
