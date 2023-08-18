@@ -45,3 +45,30 @@
     0x7ffee2592868                  //  &local from main
     0x7ffee2592064                  //  &local from handler
 ```
+
+### <p style="text-align: center;"> Тестирование на ассемблере </p>
+
+Проинициализируем струткуру типа **ss_info** как локальную переменную для функции **_start** c выделением места в [стэке](https://dzen.ru/a/YOqZ1nm1lnXxye29). Размер структуры 24 байта, или 0x18 в hex:
+```c
+#   Initialization of alternative stack.
+    sub  $0x18,         %rsp
+    movq $0x0,          %rsp       //
+    movq $0x0,          8(%rsp)    //   stack_t new_stack = {};
+    movq $0x0,          16(%rsp)   //
+    movq $ss_mem,       %rsp       //   new_stack.ss_sp    = calloc (SIGSTKSZ, sizeof(int));
+    movq $0x0,          8(%rsp)    //   new_stack.ss_flags = 0;
+    movq $SIGSTKSZ,     16(%rsp)   //   new_stack.ss_size  = SIGSTKSZ;
+```
+
+Аналогичным образом инициализируем переменную типа **struct** **sigaction**:
+```c
+#   Initialization of sigaction:
+    sub  $0x20,         %rsp
+    movq $0x0,          %rsp        //  
+    movq $0x0,          8(%rsp)     //  
+    movq $0x0,          16(%rsp)    //  struct sigaction sa = {};
+    movq $0x0,          24(%rsp)    //
+    movq $handler,      %rsp        //  sa.sa_handler = &handler;
+    movq $SA_ONSTACK,   16(%rsp)    //  sa.sa_flags   = SA_ONSTACK;
+```
+
